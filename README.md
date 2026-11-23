@@ -1,26 +1,41 @@
-# 文件鸽 Lite
+# 文件鸽 Lite · Chrome / Edge 下载文件自动重命名扩展
+
+从技术资料库下载设备维护手册，网站给的文件名却是 `880013.pdf`。文件鸽 Lite 会在保存时，用网页标题和站点名把它改成 `设备维护手册_技术资料库.pdf`。下次找文件，直接搜「设备维护」就行。基础命名在本机运行，安装后无需配置。
 
 > **[在 Chrome 应用商店安装文件鸽完整版](https://chromewebstore.google.com/detail/pigeonhole/ikjdcjgnlbealhahlogjidahhhlbcdhp?hl=zh-CN)**
 >
-> 完整版可以按自定义规则、浏览器标签组或 AI 建议，把下载文件自动归入项目文件夹。归错了，可以在最近记录里更换文件夹。使用内置 AI 无需自备 API Key。
+> 想把下载自动放进不同的项目文件夹？完整版支持按自定义规则、浏览器标签组或 AI 建议归档，也能从最近记录更换文件夹。内置 AI 无需自备 API Key。
 
-Chrome 和 Edge 下载扩展。能读懂的文件名照常保存。遇到 `附件1.pdf`、纯数字、UUID 或相机流水号等名称时，文件鸽用来源网页标题命名，并保留文件后缀。例如，从标题为「会议纪要 | 示例站」的页面下载 `附件1.pdf`，会保存成 `会议纪要_示例站.pdf`。
+## 按网页标题重命名 PDF、附件和图片
 
-## 安装
+Lite 用本地正则识别通用文件名、纯数字、UUID、相机或聊天软件生成的流水号。有明确名称的文件保留原名。下面是关闭 AI 时的下载结果。
 
-1. 下载并解压本仓库，或克隆到本机。
-2. 打开 `chrome://extensions` 或 `edge://extensions`，开启开发者模式。
-3. 点击「加载已解压的扩展程序」，选择仓库中的 `extension` 目录。
+| 下载原名 | 来源网页标题 | 保存后的文件名 |
+| --- | --- | --- |
+| `880013.pdf` | 设备维护手册 - 技术资料库 | `设备维护手册_技术资料库.pdf` |
+| `附件1 (2).docx` | 实习申请表 \| 学生事务中心 | `实习申请表_学生事务中心.docx` |
+| `IMG_0012.jpg` | 春季花展 — 城市植物园 | `春季花展_城市植物园.jpg` |
+| `采购清单.xlsx` | 采购资料下载 | `采购清单.xlsx` |
 
-扩展可以直接加载，无需构建。基础命名在本机运行。当来源信息只有网站域名，或无法确认具体标签页时，沿用浏览器的文件名并跳过 AI；遇到同名文件，由浏览器自动编号。
+命名时保留原文件后缀。遇到同名文件，浏览器会自动编号。如果下载只提供了来源域名，或 Lite 无法确认来源标签页，就沿用浏览器给出的文件名。规则只在新下载发生时运行。
 
-## 可选的 AI 命名
+## 在 Chrome 或 Edge 安装 Lite
 
-点击工具栏里的文件鸽图标，填入自己的 API Key 并保存。默认使用 OpenAI 的兼容接口。要使用其他提供商，请在「高级配置」填写该服务的 HTTPS API 地址和模型名，按浏览器提示授权该域名。
+1. 在仓库首页选择 **Code → Download ZIP** 并解压，或把仓库克隆到本机。
+2. 在 Chrome 打开 `chrome://extensions`，在 Edge 打开 `edge://extensions`，开启「开发者模式」。
+3. 点击「加载已解压的扩展程序」，选择仓库中的 `extension` 目录。Lite 可以直接加载，无需构建。
 
-只有本地正则判定文件需要改名、能确认来源页面且已配置密钥和服务权限时，扩展才向所选模型发送原文件名和页面标题，请它建议一个简短名称。文件内容和来源页正文都不发送。服务超时或出错时继续本地命名。无痕下载仅用本地规则。
+## 用自己的 API Key 启用 AI 文件命名
 
-密钥保存在当前浏览器配置的扩展本地存储中。点击「清除密钥并停用 AI」即可回到纯本地命名。
+如果希望 AI 根据网页标题和原文件名建议一个短名称，点击工具栏里的文件鸽图标，填入自己的 API Key 并保存。默认使用 OpenAI 接口。接入其他兼容服务时，在「高级配置」填写该服务的 HTTPS 地址和模型名，然后按浏览器提示授权。
+
+只有文件名命中本地规则、能确认来源页面，且已配置密钥和服务权限时，Lite 才会向所选模型发送原文件名和网页标题。文件内容和网页正文都不会发送。服务超时或出错时继续使用本地命名，无痕下载也只使用本地规则。
+
+密钥保存在当前浏览器配置的扩展本地存储中。在设置页点击「清除密钥并停用 AI」即可恢复纯本地命名。
+
+## English quick start
+
+Pigeonhole Lite is a Chrome and Edge extension that automatically renames downloads using the source page title. To install it, enable Developer mode on your browser’s extensions page and load the `extension` folder as an unpacked extension. Local naming works immediately. For AI-assisted file naming, add your own API key for an OpenAI-compatible service.
 
 ## 验证
 
