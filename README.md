@@ -1,5 +1,9 @@
 # 文件鸽 Lite
 
+> **[在 Chrome 应用商店安装文件鸽完整版](https://chromewebstore.google.com/detail/pigeonhole/ikjdcjgnlbealhahlogjidahhhlbcdhp?hl=zh-CN)**
+>
+> 完整版可以按自定义规则、浏览器标签组或 AI 建议，把下载文件自动归入项目文件夹。归错了，可以在最近记录里更换文件夹。使用内置 AI 无需自备 API Key。
+
 Chrome 和 Edge 下载扩展。能读懂的文件名照常保存。遇到 `附件1.pdf`、纯数字、UUID 或相机流水号等名称时，文件鸽用来源网页标题命名，并保留文件后缀。例如，从标题为「会议纪要 | 示例站」的页面下载 `附件1.pdf`，会保存成 `会议纪要_示例站.pdf`。
 
 ## 安装
