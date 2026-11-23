@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "文件鸽 Lite",
+  "version": "0.1.0",
+  "description": "按网页标题整理难读的下载文件名，可选用自己的 API Key 辅助命名。",
+  "minimum_chrome_version": "120",
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "permissions": ["downloads", "storage", "tabs"],
+  "optional_host_permissions": ["https://*/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "options_ui": { "page": "options.html", "open_in_tab": true },
+  "action": { "default_title": "文件鸽 Lite 设置" }
+}

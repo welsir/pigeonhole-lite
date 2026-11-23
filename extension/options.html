@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>文件鸽 Lite 设置</title>
+    <link rel="stylesheet" href="./options.css">
+    <script type="module" src="./options.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>文件鸽 Lite 设置</h1>
+        <p>下载文件默认按本地规则命名。</p>
+      </header>
+      <form id="ai-form" aria-labelledby="ai-title">
+        <fieldset id="controls" disabled>
+          <legend id="ai-title">AI 命名</legend>
+          <p class="hint" id="ai-note">启用后，只将待改名的文件名和网页标题发送至所选服务。</p>
+          <div class="group">
+            <div class="field">
+              <label for="api-key">自己的 API Key</label>
+              <input type="password" id="api-key" autocomplete="off" spellcheck="false" aria-describedby="ai-note">
+            </div>
+            <details id="advanced">
+              <summary>高级配置</summary>
+              <div class="field">
+                <label for="base-url">服务地址</label>
+                <input type="url" id="base-url" autocomplete="off" spellcheck="false" required>
+              </div>
+              <div class="field">
+                <label for="model">模型</label>
+                <input type="text" id="model" autocomplete="off" spellcheck="false" required>
+              </div>
+            </details>
+          </div>
+          <div class="actions">
+            <button type="submit">保存设置</button>
+            <button id="clear" type="button" hidden>清除密钥并停用 AI</button>
+          </div>
+        </fieldset>
+        <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      </form>
+    </main>
+  </body>
+</html>

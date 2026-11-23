@@ -1,0 +1,78 @@
+:root {
+  color-scheme: light dark;
+  --canvas: #f5f5f7;
+  --surface: #fff;
+  --ink: #202124;
+  --muted: #575b64;
+  --border: #d0d2d8;
+  --accent: #095bb5;
+  --on-accent: white;
+  --error: #a32320;
+  font: 1rem/1.55 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #17181a;
+    --surface: #232427;
+    --ink: #f2f2f4;
+    --muted: #b9bbc2;
+    --border: #565961;
+    --accent: #9cc9ff;
+    --on-accent: #132d4e;
+    --error: #ffaba5;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 38rem; padding: 4rem 1.5rem 3rem; margin: 0 auto; }
+h1 { margin: 0 0 .45rem; font-size: 2rem; line-height: 1.25; }
+header p, .hint, #status { color: var(--muted); overflow-wrap: anywhere; }
+header p { margin: 0; }
+form { margin-top: 2.6rem; }
+fieldset { padding: 0; margin: 0; min-width: 0; border: 0; }
+legend { padding: 0; font-size: 1.2rem; font-weight: 650; }
+.hint { font-size: .925rem; margin: .35rem 0 .9rem; }
+.group { background: var(--surface); border: 1px solid var(--border); border-radius: .8rem; }
+.field { padding: .95rem 1.15rem 1.15rem; }
+.field + .field { padding-top: 0; }
+label { display: block; font-weight: 600; margin-bottom: .4rem; }
+input, button { font: inherit; }
+input {
+  width: 100%;
+  min-height: 2.7rem;
+  padding: .43rem .7rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: .38rem;
+}
+input::placeholder { color: var(--muted); opacity: 1; }
+details { border-top: 1px solid var(--border); }
+summary { cursor: pointer; padding: .85rem 1.15rem; font-weight: 550; }
+summary::marker { color: var(--muted); }
+details[open] summary { padding-bottom: .25rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.15rem; }
+button {
+  cursor: pointer;
+  border: 0;
+  color: var(--on-accent);
+  background: var(--accent);
+  border-radius: .45rem;
+  padding: .55rem 1rem;
+  min-height: 2.7rem;
+  font-weight: 600;
+}
+#clear { color: var(--ink); background: transparent; }
+button:hover:not(:disabled), summary:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+button:disabled { cursor: wait; opacity: .65; }
+#status { margin: .75rem 0 0; font-size: .925rem; }
+#status[data-error="true"] { color: var(--error); }
+@media (max-width: 32rem) {
+  main { padding: 2.1rem 1.15rem; }
+  form { margin-top: 2rem; }
+}
