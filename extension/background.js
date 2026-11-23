@@ -14,11 +14,8 @@ function webPage(value) {
 
 async function sourceTitle(referrer, incognito) {
   const tabs = await chrome.tabs.query({ url: referrer.protocol + '//' + referrer.hostname + '/*' });
-  const sameOrigin = tabs.filter(tab => Boolean(tab.incognito) === incognito &&
-    webPage(tab.url)?.origin === referrer.origin);
-  const originOnly = referrer.pathname === '/' && !referrer.search;
-  const matches = originOnly ? sameOrigin : sameOrigin.filter(tab => webPage(tab.url)?.href === referrer.href);
-  // Multiple tabs can share an origin-only referrer. Never borrow an unrelated active tab's title.
+  const matches = tabs.filter(tab => Boolean(tab.incognito) === incognito &&
+    webPage(tab.url)?.href === referrer.href);
   if (!matches.length || matches.some(tab => tab.title !== matches[0].title)) return '';
   return matches[0].title?.trim() || '';
 }
@@ -31,7 +28,8 @@ chrome.downloads.onDeterminingFilename.addListener((item, suggest) => {
     return;
   }
   const referrer = webPage(item.referrer);
-  if (!referrer) {
+  // A bare origin can describe any page on the site, including a tab already closed.
+  if (!referrer || (referrer.pathname === '/' && !referrer.search)) {
     suggest();
     return;
   }

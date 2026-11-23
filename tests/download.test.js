@@ -53,6 +53,18 @@ test('preserves readable names, other extensions’ downloads and missing or amb
   assert.equal(calls, 0);
 });
 
+test('a bare origin never borrows even the only open tab title or calls a configured model', async () => {
+  aiSettings = mockSettings;
+  granted = true;
+  const root = 'https://example.test/';
+  for (const url of [root, root + 'other-page']) {
+    tabs = [{ url, title: 'Unrelated title' }];
+    assert.equal(await resolveDownload({ ...item, referrer: root }), undefined);
+  }
+  assert.equal(permissionChecks, 0);
+  assert.equal(calls, 0);
+});
+
 test('uses only local rules if the host permission is missing or the download is private', async () => {
   aiSettings = mockSettings;
   assert.equal((await resolveDownload(item)).filename, '季度报告_示例站.pdf');

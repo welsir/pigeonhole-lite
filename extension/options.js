@@ -55,8 +55,9 @@ async function load() {
 async function releaseOrigin(pattern) {
   if (!pattern) return true;
   try {
-    await chrome.permissions.remove({ origins: [pattern] });
-    return true;
+    const permission = { origins: [pattern] };
+    const removed = await chrome.permissions.remove(permission);
+    return removed || !(await chrome.permissions.contains(permission));
   } catch {
     return false;
   }
@@ -98,28 +99,56 @@ form.addEventListener('submit', async (event) => {
 
   controls.disabled = true;
   try {
-    // Request permission directly from the submit gesture, before any async work.
-    const allowed = await chrome.permissions.request({ origins: [next.originPattern] });
+    const permission = { origins: [next.originPattern] };
+    // Start both calls in order so the request still belongs to the submit gesture.
+    const [alreadyAllowed, allowed] = await Promise.all([
+      chrome.permissions.contains(permission),
+      chrome.permissions.request(permission),
+    ]);
     if (!allowed) {
       message('未获得该服务的网站权限，设置未保存。', true);
       return;
     }
     await navigator.locks.request('pigeonhole-ai-settings', async () => {
-      const { aiSettings } = await chrome.storage.local.get('aiSettings');
-      const current = normalizeAiSettings(aiSettings);
-      if (!sameSettings(current, saved)) {
-        showSettings(current, aiSettings != null);
-        message('设置已在其他页面更改，请重新确认。', true);
-        return;
+      let stored = false;
+      try {
+        const { aiSettings } = await chrome.storage.local.get('aiSettings');
+        const current = normalizeAiSettings(aiSettings);
+        if (!sameSettings(current, saved)) {
+          showSettings(current, aiSettings != null);
+          message('设置已在其他页面更改，请重新确认。', true);
+          return;
+        }
+        // Another settings page may have released a grant while this one waited.
+        if (!(await chrome.permissions.contains(permission))) {
+          message('该服务的网站权限已更改，请重新保存。', true);
+          return;
+        }
+        const { baseUrl, model, apiKey } = next;
+        await chrome.storage.local.set({ aiSettings: { baseUrl, model, apiKey } });
+        stored = true;
+        showSettings(next, true);
+        if (current && current.originPattern !== next.originPattern && !(await releaseOrigin(current.originPattern))) {
+          message('设置已保存。旧服务的网站权限可在扩展管理中移除。');
+          return;
+        }
+        message('已保存，AI 命名已启用。');
+      } catch {
+        message('未能保存设置，请重试。', true);
+      } finally {
+        if (!stored && !alreadyAllowed) {
+          try {
+            // Check the persisted owner under the same lock before rolling back a grant.
+            const { aiSettings } = await chrome.storage.local.get('aiSettings');
+            const owner = normalizeAiSettings(aiSettings);
+            if (owner?.originPattern !== next.originPattern && !(await releaseOrigin(next.originPattern))) {
+              message('设置未保存，请在扩展管理中检查该服务的网站权限。', true);
+            }
+          } catch {
+            message('无法核对已保存的设置，请在扩展管理中检查网站权限。', true);
+          }
+        }
       }
-      const { baseUrl, model, apiKey } = next;
-      await chrome.storage.local.set({ aiSettings: { baseUrl, model, apiKey } });
-      showSettings(next, true);
-      if (current && current.originPattern !== next.originPattern && !(await releaseOrigin(current.originPattern))) {
-        message('设置已保存。旧服务的网站权限可在扩展管理中移除。');
-        return;
-      }
-      message('已保存，AI 命名已启用。');
     });
   } catch {
     message('未能保存设置，请检查该服务的网站权限后重试。', true);
