@@ -10,7 +10,7 @@
 </p>
 
 <picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="media/store-attachments.png">
+  <source media="(prefers-reduced-motion: reduce)" srcset="media/download-demo-still.png">
   <img src="media/download-demo.gif" alt="采购公告里的附件2.pdf，下载后保存在「青禾采购」文件夹，名为「图书馆设备采购_评分细则.pdf」。">
 </picture>
 
