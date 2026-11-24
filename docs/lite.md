@@ -1,3 +1,5 @@
+<p><strong>简体中文</strong> · <a href="lite.en.md" lang="en">English</a></p>
+
 # 文件鸽 Lite 使用说明
 
 Lite 在下载时用本地正则识别通用文件名、纯数字、UUID、论文编号和相机流水号，再根据已确认的来源网页标题命名。例如，从「春季观鸟路线 — 自然手册」页面下载 `附件1.pdf`，会保存为 `春季观鸟路线_自然手册.pdf`。已有明确含义的文件名会保留。遇到同名文件，浏览器自动编号。
@@ -12,15 +14,11 @@ Lite 只处理新下载。网页标题相同的附件可能得到相同的基础
 
 ## 用自己的 API Key 启用 AI 文件命名
 
-如果希望 AI 根据网页标题和原文件名建议一个短名称，点击工具栏里的文件鸽图标，填入自己的 API Key 并保存。默认使用 OpenAI 接口。接入其他兼容服务时，在「高级配置」填写该服务的 HTTPS 地址和模型名，然后按浏览器提示授权。
+如果希望 AI 根据网页标题和原文件名建议一个短名称，点击工具栏里的文件鸽图标打开设置，默认使用 OpenAI 接口。接入其他兼容服务时，先在「高级配置」填写该服务的 HTTPS 地址和模型名，再填入对应的 API Key，点击「保存设置」并按浏览器提示授权。
 
 只有文件名命中本地规则、能确认来源页面，且已配置密钥和服务权限时，Lite 才会向所选模型发送原文件名和网页标题。文件内容和网页正文都不会发送。服务超时或出错时继续使用本地命名，无痕下载也只使用本地规则。
 
 密钥保存在当前浏览器配置的扩展本地存储中。在设置页点击「清除密钥并停用 AI」即可恢复纯本地命名。
-
-## English quick start
-
-Pigeonhole Lite is a Chrome and Edge extension that automatically renames downloads using the source page title. To install it, enable Developer mode on your browser’s extensions page and load the `extension` folder as an unpacked extension. Local naming works immediately. For AI-assisted file naming, add your own API key for an OpenAI-compatible service.
 
 ## 验证
 
