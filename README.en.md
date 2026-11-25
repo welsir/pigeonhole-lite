@@ -5,9 +5,9 @@
 <p align="center">Pigeonhole is a Chrome extension that gives downloads readable names using clues from the source page. It files papers, attachments and design assets into project folders using your rules, tab groups or AI suggestions.</p>
 
 <p align="center"><a href="https://chromewebstore.google.com/detail/pigeonhole/ikjdcjgnlbealhahlogjidahhhlbcdhp?hl=en"><img src="media/en/install-chrome.png" width="206" height="46" alt="Install Pigeonhole from the Chrome Web Store"></a><br>
-<sub>No account or API key required · Built-in AI is free during the beta, up to a daily limit</sub></p>
+<sub>No account required · Try the built-in AI or connect your own provider</sub></p>
 
-<p align="center"><a href="#features">Features</a> · <a href="#product-tour">Product tour</a> · <a href="#filing-rules">Filing rules</a> · <a href="#your-first-download">Your first download</a> · <a href="#faq">FAQ</a></p>
+<p align="center"><a href="#features">Features</a> · <a href="#download-search-preview">0.2.0 preview</a> · <a href="#product-tour">Product tour</a> · <a href="#filing-rules">Filing rules</a> · <a href="#your-first-download">Your first download</a> · <a href="#faq">FAQ</a></p>
 
 ## Features
 
@@ -16,12 +16,29 @@
 | Several files all called “Attachment” from one page | Turn on **Page snippets** and grant site access. Pigeonhole can use the text around each link to tell the requirements, scoring rules and contract template apart. |
 | Material for one project from several sites | Tie a project to a browser tab group, set a filing rule, or use an AI suggestion. If no project fits, Pigeonhole can file by type or use the *Other* folder. |
 | Files that must keep a supplier's original reference number | Add the site to **Keep names from**. Its files can still go to the project folder with their original names intact. |
+| A file lands in the wrong project | Turn on **Show download cards on the page** and grant site access. The card shows progress, the new filename and its destination. Choose **Change folder** or **Undo** from the page where you downloaded it. |
+| A project already has a folder on your computer | Edit the project, select **Use a folder on your computer…**, then pick the existing directory. For example, make the folder you already use for exhibition artwork the destination for that project. |
 | Something you need to find or move later | Open Pigeonhole from the toolbar to see the saved name, project and available undo actions. If you like where it landed, you can make a rule from that download. |
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="media/en/download-demo-still.png">
   <img src="media/en/download-demo.gif" alt="The library tender’s attachment2.pdf is saved as Library tender_Scoring rules.pdf in the City tenders project.">
 </picture>
+
+## Download search preview
+
+**Version 0.2.0 is a release candidate.** It lets you find downloads Pigeonhole has handled using clues from the source page. As of November 25, 2026, the [Chrome Web Store](https://chromewebstore.google.com/detail/pigeonhole/ikjdcjgnlbealhahlogjidahhhlbcdhp?hl=en) offers version 0.1.2.
+
+To find the scoring sheet from the library tender above, open **Recent** in the toolbar panel and type `scoring`. For a different tender, you might only remember downloading a parking PDF last week. Try `last week PDF parking`. The date and file type become filters, while “parking” matches the filename, source page title or saved link text. Keyword searches run on your device. You can also filter by the file’s last confirmed folder.
+
+<p align="center"><a href="media/en/find-download.png"><img src="media/en/find-download.png" width="440" alt="Searching for scoring in the 0.2.0 candidate finds the sample library tender PDF in City tenders. The panel also offers Find with AI."></a></p>
+
+- **Find attachments from a page you revisit.** Open the panel on that page. **Downloaded from this page** lists the downloads Pigeonhole has recorded there.
+- **Describe a file with Find with AI.** Select the button and confirm on first use to send your description and up to 30 locally selected summaries. The AI can suggest up to three matches and explain its choices. Pigeonhole excludes records from sites where you’ve disabled AI. The request omits file contents, full URLs and local paths.
+- **Open a match in your browser.** Use **Open in browser** to view a PDF, common image, plain text file or supported audio or video file read-only. This also works after a move if Pigeonhole can locate the file and has permission to read its folder.
+- **Check where a large file actually landed.** External filing verifies large files in chunks. The record distinguishes a completed move from a file still in Downloads or one whose location needs checking.
+
+**In the development version**, you can describe a rule in a sentence, such as “File arXiv papers in Thesis/Papers.” Check the conditions and destination the AI drafts before saving. You can also read the release history in settings and choose whether to see update notices in the toolbar panel. These features haven’t reached the 0.2.0 candidate yet.
 
 ## Product tour
 
@@ -35,6 +52,19 @@ The Maple City library tender links to two PDFs and a Word document. The second 
 <summary>See the three original attachments and their saved names</summary>
 
 [![A library tender with three attachment links and three distinct filenames in the project folder](media/en/store-attachments.png)](media/en/store-attachments.png)
+
+</details>
+
+### Change the destination as the download finishes
+
+In **General**, turn on **Show download cards on the page** and grant site access when prompted. When the download finishes, the card shows the saved name and destination. In this example, the scoring sheet went to *City tenders*. Choose **Show in folder** to open its location or **Change folder** to pick another project. The toolbar panel also keeps a record when the page cannot show a card.
+
+If your project already has a directory on your computer, select **Change folder → Choose a folder on your computer…**. Chrome needs access to both the folder Pigeonhole manages in Downloads and the destination folder. The file stays in the managed Downloads folder until you grant access.
+
+<details>
+<summary>See the on-page download card and its Change folder button</summary>
+
+<p align="center"><a href="media/en/download-controls.png"><img src="media/en/download-controls.png" width="420" alt="A scoring sheet filed in City tenders, with Show in folder, Change folder and Undo on the card."></a></p>
 
 </details>
 
@@ -113,7 +143,7 @@ In **General**, set **Notifications** to **Only to review**. If you're downloadi
 <details>
 <summary><strong>Do I need an account or an API key? Can I use my own provider?</strong></summary>
 
-No account is required. The built-in AI includes a daily allowance during the beta. To use your own compatible AI provider, enter its API key, endpoint and model in settings. Your provider's fees and limits apply.
+You can try the built-in AI without an account or an API key. To use your own compatible AI provider, enter its API key, endpoint and model in settings. Your provider's fees and limits apply.
 
 </details>
 
